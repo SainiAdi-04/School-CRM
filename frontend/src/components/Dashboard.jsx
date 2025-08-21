@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { 
   CalendarIcon, BellIcon, CreditCardIcon, UserIcon, 
   DocumentTextIcon, LightBulbIcon, ClipboardListIcon,
-  ChartBarIcon 
+  ChartBarIcon, LogoutIcon
 } from '@heroicons/react/solid';
 import ThemeToggle from './ThemeToggle';
 
@@ -14,6 +14,15 @@ const Dashboard = ({ user }) => {
 
   const handleProfileClick = () => {
     navigate('/profile');
+  };
+
+  const handleLogout = () => {
+    // Clear authentication data from localStorage
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    
+    // Redirect to login page
+    navigate('/login');
   };
 
   return (
@@ -50,6 +59,16 @@ const Dashboard = ({ user }) => {
             />
             <span>{userName}</span>
           </div>
+
+          {/* Logout Button */}
+          <button
+            onClick={handleLogout}
+            className="flex flex-col items-center text-white hover:text-gray-200 transition-colors duration-200"
+            title="Logout"
+          >
+            <LogoutIcon className="h-6 w-6" />
+            <span className="text-xs mt-1">Logout</span>
+          </button>
         </div>
       </header>
 
